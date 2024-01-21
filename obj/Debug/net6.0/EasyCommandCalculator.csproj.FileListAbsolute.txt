@@ -1,0 +1,15 @@
+D:\c\c#\EasyCommandCalculator\bin\Debug\net6.0\EasyCommandCalculator.exe
+D:\c\c#\EasyCommandCalculator\bin\Debug\net6.0\EasyCommandCalculator.deps.json
+D:\c\c#\EasyCommandCalculator\bin\Debug\net6.0\EasyCommandCalculator.runtimeconfig.json
+D:\c\c#\EasyCommandCalculator\bin\Debug\net6.0\EasyCommandCalculator.dll
+D:\c\c#\EasyCommandCalculator\bin\Debug\net6.0\EasyCommandCalculator.pdb
+D:\c\c#\EasyCommandCalculator\obj\Debug\net6.0\EasyCommandCalculator.csproj.AssemblyReference.cache
+D:\c\c#\EasyCommandCalculator\obj\Debug\net6.0\EasyCommandCalculator.GeneratedMSBuildEditorConfig.editorconfig
+D:\c\c#\EasyCommandCalculator\obj\Debug\net6.0\EasyCommandCalculator.AssemblyInfoInputs.cache
+D:\c\c#\EasyCommandCalculator\obj\Debug\net6.0\EasyCommandCalculator.AssemblyInfo.cs
+D:\c\c#\EasyCommandCalculator\obj\Debug\net6.0\EasyCommandCalculator.csproj.CoreCompileInputs.cache
+D:\c\c#\EasyCommandCalculator\obj\Debug\net6.0\EasyCommandCalculator.dll
+D:\c\c#\EasyCommandCalculator\obj\Debug\net6.0\refint\EasyCommandCalculator.dll
+D:\c\c#\EasyCommandCalculator\obj\Debug\net6.0\EasyCommandCalculator.pdb
+D:\c\c#\EasyCommandCalculator\obj\Debug\net6.0\EasyCommandCalculator.genruntimeconfig.cache
+D:\c\c#\EasyCommandCalculator\obj\Debug\net6.0\ref\EasyCommandCalculator.dll
