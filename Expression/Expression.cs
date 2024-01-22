@@ -123,6 +123,7 @@ namespace EasyCommandCalculator.Expression
                 {
                     (lastContent.number, power),
                 });
+                lastContent = (lastContent.operation, term);
             }
             else
             {
@@ -162,9 +163,15 @@ namespace EasyCommandCalculator.Expression
             int level = 0;//当前左右包了几个括号
             for (int i = 0; i < input.Length; i++)
             {
+#if DEBUG
+                Console.Write("i=\"" + i.ToString() + "\" input[i]= \"" + input[i] + "\"");
+#endif
                 bool ThisCharIsNumber = IsNumber(input[i]);
                 if (IsChanged(current, input[i]))//如果上个不是数字而这个是，或者上个是这个不是，就认为遍历完了当前数字或符号
                 {
+#if DEBUG
+                    Console.Write("ischanged, current=\"" + current+ "\"");
+#endif
                     //计算括号
                     if (current == "(")
                     {
@@ -202,13 +209,25 @@ namespace EasyCommandCalculator.Expression
                         {
                             bracketed = bracketed[..^1];
 
+#if DEBUG
+                            Console.Write("\nbracketed=\"" + bracketed + "\"\n");
+#endif
+
                             //出了括号之后处理括号内
                             Expression innerExpression = new Expression(bracketed);
+
+#if DEBUG
+                            Console.Write("\n inner expression processed. \n");
+#endif
+
                             if (lastOperation == Operation.Empty)//如果前面没有写运算符
                             {
                                 if (contents.Count == 0)//如果前面没东西，说明这是个废括号，用加法存储
                                 {
                                     contents.Add((Operation.Addition, innerExpression));
+#if DEBUG
+                                    Console.Write($"added inner expression\"{innerExpression.GenerateString()}\" to the contents.");
+#endif
                                 }
                                 else//那就是与前面相乘
                                 {
@@ -224,9 +243,12 @@ namespace EasyCommandCalculator.Expression
                                 else if (lastOperation == Operation.Division)
                                 {
                                     MultiplyLastContent(innerExpression);
-                                    SquareLastContent(new RationalNumber(-1, 0));
+                                    SquareLastContent(new RationalNumber(-1, 1));
                                 }
                                 contents.Add((lastOperation, innerExpression));
+#if DEBUG
+                                Console.Write($"added inner expression\"{innerExpression.GenerateString()}\" to the contents.");
+#endif
                             }
 
                             bracketed = String.Empty;
@@ -243,6 +265,9 @@ namespace EasyCommandCalculator.Expression
                                 if (contents.Count == 0)//如果前面没东西，说明这是算式中第一个数字，用加法存储
                                 {
                                     contents.Add((Operation.Addition, number));
+#if DEBUG
+                                    Console.Write($"added \"{Operation.Addition.ToString()}\"\"{number.GenerateString()}\" to the contents.");
+#endif
                                 }
                                 else//那就是与前面相乘
                                 {
@@ -262,11 +287,14 @@ namespace EasyCommandCalculator.Expression
                                 else if (lastOperation == Operation.Division)
                                 {
                                     MultiplyLastContent(number);
-                                    SquareLastContent(new RationalNumber(-1, 0));
+                                    SquareLastContent(new RationalNumber(-1, 1));
                                 }
                                 else
                                 {
                                     contents.Add((lastOperation, number));
+#if DEBUG
+                                    Console.Write($"added \"{lastOperation}\"\"{number.GenerateString()}\" to the contents.");
+#endif
                                 }
                             }
                             lastOperation = Operation.Empty;
@@ -281,6 +309,9 @@ namespace EasyCommandCalculator.Expression
                 }
                 current += input[i];
                 lastCharIsNumber = ThisCharIsNumber;
+#if DEBUG
+                Console.Write("\n");
+#endif
             }
 
         }
@@ -342,7 +373,15 @@ namespace EasyCommandCalculator.Expression
                 {
                     res += operationToString[contents[i].operation];
                 }
-                res += contents[i].number.GenerateString();
+
+                if (contents[i].number is Term)
+                {
+                    res += "(" + contents[i].number.GenerateString() + ")";
+                }
+                else
+                {
+                    res += contents[i].number.GenerateString();
+                }
             }
             return res;
         }

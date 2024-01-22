@@ -51,18 +51,18 @@ namespace EasyCommandCalculator
             INumber number = RationalNumber.One;
             foreach(var item in contents)
             {
-                if (item.number is RationalNumber && item.power is RationalNumber)
+                (INumerical number, INumerical power) simplifiedItem = (item.number.Simplify(), item.power.Simplify());
+                if (simplifiedItem.number is RationalNumber && simplifiedItem.power is RationalNumber)
                 {
-                    number = (INumber)number.Multiplication(RationalNumber.Square((RationalNumber)item.number, (RationalNumber)item.power));
+                    number = (INumber)number.Multiplication(RationalNumber.Square((RationalNumber)simplifiedItem.number, (RationalNumber)simplifiedItem.power));
                 }
-                else if (item.number is Expression.Expression && (item.power is RationalNumber))
+                else if (simplifiedItem.number is Expression.Expression && (simplifiedItem.power is RationalNumber))
                 {
-                    ((Expression.Expression)item.number).Simplify();
-                    newContents.Add(item);
+                    newContents.Add(simplifiedItem);
                 }
                 else
                 {
-                    newContents.Add(item);
+                    newContents.Add(simplifiedItem);
                 }
             }
 
